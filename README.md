@@ -21,5 +21,5 @@ docker-compose run --rm app sh -c "python manage.py test"
 
 ## Run Project with Docker Compose
 
-Run: ```docker-compose up```
+After building the docker image, run: ```docker-compose up```
 Then go to [http://localhost:8000](http://localhost:8000) to see the app in development.
