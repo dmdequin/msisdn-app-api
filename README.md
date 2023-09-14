@@ -16,4 +16,4 @@ docker-compose run --rm app sh -c "flake8"
 ## Run Project with Docker Compose
 
 Run: ```docker-compose up```
-Then go to (http://localhost:8000)[http://localhost:8000] to see the app in development.
+Then go to [http://localhost:8000](http://localhost:8000) to see the app in development.
