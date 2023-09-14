@@ -6,11 +6,17 @@ Run ```docker build .``` to build the docker image.
 
 Run ```docker-compose build``` to run the above command, but use the docker-compose.yml file.
 
-## Linting
+## Linting Locally
 
 Flake8 was used for linting the code in this project. To run, from the main project directory enter:
 ```
 docker-compose run --rm app sh -c "flake8"
+```
+
+## Testing Locally
+Run:
+```
+docker-compose run --rm app sh -c "python manage.py test"
 ```
 
 ## Run Project with Docker Compose
