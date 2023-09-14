@@ -23,3 +23,7 @@ docker-compose run --rm app sh -c "python manage.py test"
 
 After building the docker image, run: ```docker-compose up```
 Then go to [http://localhost:8000](http://localhost:8000) to see the app in development.
+
+Go to test admin functionality go to: [http://localhost:8000/admin](http://localhost:8000/admin)
+Create a superuser in the terminal by entering ```docker-compose run --rm app sh -c "python manage.py createsuperuser```
+Then login to the admin page using the admin credentials you provided.
