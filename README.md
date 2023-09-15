@@ -8,7 +8,7 @@ Run ```docker-compose build``` to run the above command, but use the docker-comp
 
 ## Linting Locally
 
-Flake8 was used for linting the code in this project. To run, from the main project directory enter:
+Flake8 is used for linting the code in this project. To run, from the main project directory enter:
 ```
 docker-compose run --rm app sh -c "flake8"
 ```
@@ -27,3 +27,7 @@ Then go to [http://localhost:8000](http://localhost:8000) to see the app in deve
 Go to test admin functionality go to: [http://localhost:8000/admin](http://localhost:8000/admin)
 Create a superuser in the terminal by entering ```docker-compose run --rm app sh -c "python manage.py createsuperuser```
 Then login to the admin page using the admin credentials you provided.
+
+## Documentation Page
+Swagger is used in this project to generate a documentation page for the API. This can be accessed at [http://localhost:8000/api/docs](http://localhost:8000/api/docs).
+
