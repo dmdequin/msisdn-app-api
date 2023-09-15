@@ -115,7 +115,7 @@ class PublicUserApiTests(TestCase):
     def test_retrieve_user_unauthorized(self):
         """Test authentication is required for users."""
         # Make an unauthenticated request to the endpoint
-        res = self.client.get(MY_URL)
+        res = self.client.get(ME_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
