@@ -26,8 +26,9 @@ urlpatterns = [
     # generates schema file for project
     path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
     # uses schema defined above
-    path('api/docs/',
-          SpectacularSwaggerView.as_view(url_name='api-schema'),
-          name='api-docs',
+    path(
+        'api/docs/',
+        SpectacularSwaggerView.as_view(url_name='api-schema'),
+        name='api-docs',
     ),
 ]
