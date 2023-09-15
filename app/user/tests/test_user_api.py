@@ -104,7 +104,7 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_blank_password(self):
         """Test returns error if posting a blank password."""
-        payload = { 'email': 'test@example.com', 'password': '' }
+        payload = {'email': 'test@example.com', 'password': ''}
         res = self.client.post(TOKEN_URL, payload)
 
         # no token expected beacuse password was empty
