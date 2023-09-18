@@ -53,4 +53,4 @@ class MSISD(models.Model):
     country_identifier = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.msisdn
+        return str(self.msisdn)

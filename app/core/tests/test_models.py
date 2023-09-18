@@ -4,6 +4,8 @@ Tests for models.
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from core import models
+
 
 class ModelTests(TestCase):
     """Test models."""
@@ -46,3 +48,15 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_creating_msisd_entry(self):
+        """Test creating MSISD object."""
+        msisd = models.MSISD.objects.create(
+            msisdn=905519555325,
+            MNO="Turkcell",
+            country_code=90,
+            subscriber_number=5519555325,
+            country_identifier='TR',
+        )
+
+        self.assertEqual(str(msisd), str(msisd.msisdn))
