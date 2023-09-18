@@ -27,8 +27,8 @@ class Command(BaseCommand):
                 print(row)
 
                 msisd = MSISD(msisdn=row[0],
-                            MNO=row[1],
-                            country_code=row[2],
-                            subscriber_number=row[3],
-                            country_identifier=row[4])
+                              MNO=row[1],
+                              country_code=row[2],
+                              subscriber_number=row[3],
+                              country_identifier=row[4])
                 msisd.save()
