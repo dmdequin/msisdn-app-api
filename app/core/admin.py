@@ -49,3 +49,4 @@ class UserAdmin(BaseUserAdmin):
 
 # Assigns the custom UserAdmin class for the model manager
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.MSISD)

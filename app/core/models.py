@@ -1,7 +1,7 @@
 """
 Models for the database.
 """
-
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        """Craete, save and return a new superuser."""
+        """Create, save and return a new superuser."""
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
@@ -43,3 +43,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()  # assign user manager
 
     USERNAME_FIELD = 'email'
+
+
+class MSISD(models.Model):
+    """MSISD object."""
+    msisdn = models.PositiveIntegerField()
+    MNO = models.CharField(max_length=255)
+    country_code = models.PositiveIntegerField()
+    subscriber_number = models.PositiveIntegerField()
+    country_identifier = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.msisdn
