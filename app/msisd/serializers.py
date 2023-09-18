@@ -1,0 +1,23 @@
+"""
+Serializers for MSISD API.
+"""
+from rest_framework import serializers
+
+from core.models import MSISD
+
+
+class MsisdSerializer(serializers.ModelSerializer):
+    """Serializer for MSISD objects."""
+
+    class Meta:
+        model = MSISD
+        fields = ['id', 'msisdn', 'MNO', 'country_code',
+                  'subscriber_number', 'country_identifier'
+                  ]
+        read_only_fields = ['id']
+
+    def create(self, validated_data):
+        """Create a MSISD object."""
+        msisd = MSISD.objects.create(**validated_data)
+
+        return msisd

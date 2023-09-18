@@ -13,6 +13,7 @@ from msisd.serializers import MsisdSerializer
 
 MSISD_URL = reverse('msisd:msisd-list')
 
+
 def create_msisd_entry(**params):
     """Create and return MSISD object."""
     defaults = {
@@ -41,7 +42,7 @@ class PublicMsisdAPITests(TestCase):
 
         res = self.client.get(MSISD_URL)
 
-        msisd_list = MSISD.objects.all().order_by('-msisdn')
+        msisd_list = MSISD.objects.all().order_by('-id')  # maybe change
         serializer = MsisdSerializer(msisd_list)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
@@ -61,4 +62,4 @@ class PublicMsisdAPITests(TestCase):
         msisd = MSISD.objects.get(id=res.data['id'])
         for k, v in payload.items():
             self.assertEqual(getattr(msisd, k), v)
-        self.assertEqual(msisd.msisdn, self.msisdn)
+        self.assertEqual(msisd.msisdn, payload['msisdn'])
