@@ -43,9 +43,9 @@ class PublicMsisdAPITests(TestCase):
         res = self.client.get(MSISD_URL)
 
         msisd_list = MSISD.objects.all().order_by('-id')  # maybe change
-        serializer = MsisdSerializer(msisd_list)
+        serializer = MsisdSerializer(msisd_list, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, serializer.data)
+        self.assertEqual(res.data, serializer.data)  #
 
     def test_create_msisd_entry(self):
         """Test creating a msisd entry."""
