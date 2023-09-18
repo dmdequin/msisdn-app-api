@@ -22,8 +22,8 @@ class Command(BaseCommand):
                 print('Deleting existing database...')
                 MSISD.objects.all().delete()
 
+            print('Reloading database...')
             for row in reader:
-                print('Reloading database...')
                 print(row)
 
                 msisd = MSISD(msisdn=row[0],

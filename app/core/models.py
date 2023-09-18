@@ -46,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class MSISD(models.Model):
     """MSISD object."""
-    msisdn = models.PositiveBigIntegerField()
+    msisdn = models.PositiveBigIntegerField(primary_key=True)
     MNO = models.CharField(max_length=255)
     country_code = models.PositiveBigIntegerField()
     subscriber_number = models.PositiveBigIntegerField()
