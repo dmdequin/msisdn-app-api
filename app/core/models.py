@@ -46,10 +46,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class MSISD(models.Model):
     """MSISD object."""
-    msisdn = models.PositiveIntegerField()
+    msisdn = models.PositiveBigIntegerField()
     MNO = models.CharField(max_length=255)
-    country_code = models.PositiveIntegerField()
-    subscriber_number = models.PositiveIntegerField()
+    country_code = models.PositiveBigIntegerField()
+    subscriber_number = models.PositiveBigIntegerField()
     country_identifier = models.CharField(max_length=255)
 
     def __str__(self):
