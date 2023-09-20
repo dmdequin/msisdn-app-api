@@ -8,9 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 class GetMSISDNForm(forms.Form):
     """Class for the MSISD form."""
-    msisdn = forms.CharField(
-        help_text="Enter an MSISD number"
-        )
+    msisdn = forms.CharField(help_text="Enter MSISDN")
 
     def clean(self):
         cleaned_data = super(GetMSISDNForm, self).clean()
