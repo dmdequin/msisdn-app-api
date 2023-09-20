@@ -5,9 +5,10 @@ from rest_framework import viewsets
 
 from core.models import MSISD
 from msisd import serializers
-from msisd.forms import GetMsisdForm
+from msisd.forms import GetMSISDNForm
 
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
 
 class MsisdViewset(viewsets.ModelViewSet):
@@ -37,8 +38,13 @@ def search_msisdn(request):
     """View for searching MSISD API."""
 
     if request.method == 'POST':
-        form = GetMsisdForm(request.POST)
+        form = GetMSISDNForm(request.POST)
+        # Check if form is valid
+        if form.is_valid():
+            # This doesn't do anything yet
+            return HttpResponseRedirect("/")
     else:
-        form = GetMsisdForm()
+        # Get a blank form
+        form = GetMSISDNForm()
 
     return render(request, 'msisd_search.html', {'form': form})
