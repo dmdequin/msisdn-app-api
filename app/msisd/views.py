@@ -8,7 +8,8 @@ from msisd import serializers
 from msisd.forms import GetMSISDNForm
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 class MsisdViewset(viewsets.ModelViewSet):
@@ -34,6 +35,14 @@ class MsisdViewset(viewsets.ModelViewSet):
         serializer.save()
 
 
+# This is hard coded for now...
+def get_msisd(request, msisdn=5492216176161):
+    """Get detail using MSISDN."""
+    msisd_list = MSISD.objects.all()
+    msisd_data = msisd_list.filter(msisdn=msisdn)
+    return render(request, 'msisd_result.html', {'msisd_data': msisd_data})
+
+
 def search_msisdn(request):
     """View for searching MSISD API."""
 
@@ -42,7 +51,7 @@ def search_msisdn(request):
         # Check if form is valid
         if form.is_valid():
             # This doesn't do anything yet
-            return HttpResponseRedirect("/")
+            return reverse('msisd:msisd-detail', args=[form.msisdn])
     else:
         # Get a blank form
         form = GetMSISDNForm()
