@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %} MSISDN API Search {% endblock %}</title>
+    </head>
     <body>
         <center>
+            {% block content %}
             <h1>Search the MSISDN API</h1>
             <form action="/api/msisd/api-search/" method="GET">
                 <input type="text" name="msisdn" />
                 <input type="submit" />
             </form>
+            {% endblock %}
         </center>
     </body>
     <footer>

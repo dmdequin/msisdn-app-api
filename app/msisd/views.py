@@ -62,7 +62,7 @@ def msisdn_base_view(request):
     return render(request, "base.html", context=context)
 
 
-def msisdn_search_view(request):
+def msisdn_search_view(request, *args, **kwargs):
     """View for searching the MSISD API."""
     query_dict = request.GET  # this is a dictionary
     msisdn = query_dict.get("msisdn")
@@ -70,11 +70,12 @@ def msisdn_search_view(request):
     msisd_object = None
     if msisdn is not None:
         msisd_object = MSISD.objects.get(msisdn=msisdn)
-        #msisd_object = MSISD.objects.all().filter(msisdn=int(msisdn))
+        # msisd_object = MSISD.objects.all().filter(msisdn=int(msisdn))
         print(f"MSISD subsc. num.: {msisd_object.subscriber_number}")
         print(f"MSISD MNO: {msisd_object.MNO}")
 
     print(type(msisd_object))
-    #context = {"object": msisd_object}
-    #print(f"context: {context['object']}")
-    return render(request, "search.html", {"object": msisd_object})
+    context = {"object": msisd_object}
+    # print(f"context: {context['object']}")
+
+    return render(request, "search.html", context)

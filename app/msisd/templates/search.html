@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 
+{% block title %} Search Result {% endblock %}
+
 {% block content %}
+<h1>MSISDN Search Results...</h1>
+<p>This is a test.</p>
+
 {% if object %}
 <h1>there is a thing</h1>
-<!--     {% for data in object %}
-        <h1>MSISDN: {{ data.msisdn }}</h1>
-        Country Code: {{ data.country_code }}<br>
-        Country Identifier: {{ data.country_identifier }}<br>
-        Mobil Network Operator: {{ data.MNO }}<br>
-        Subscriber Number: {{ data.subscriber_number }}
-    {% endfor %} -->
 <h2>{{ object.msisdn }}</h2>
 <p>{{ object.MNO }}</p>
 <p>{{ object.country_code }}</p>
@@ -21,6 +19,3 @@
 
 {% endblock content %}
 
-<footer>
-    <a href="http://localhost:8000/api/msisd/api-search-home/">Home</a>
-</footer>
