@@ -3,11 +3,13 @@
 {% block content %}
 
 {% if object %}
-<h1>{{ object.msisdn }}</h1>
-<p>{{ object.MNO }}</p>
-<p>{{ object.country_code }}</p>
-<p>{{ object.subscriber_number }}</p>
-<p>{{ object.country_identifier }}</p>
+    {% for data in object %}
+        <h1>MSISDN: {{ data.msisdn }}</h1>
+        Country Code: {{ data.country_code }}<br>
+        Country Identifier: {{ data.country_identifier }}<br>
+        Mobil Network Operator: {{ data.MNO }}<br>
+        Subscriber Number: {{ data.subscriber_number }}
+    {% endfor %}
 {% else %}
 <p>no comments exist</p>
 {% endif %}
