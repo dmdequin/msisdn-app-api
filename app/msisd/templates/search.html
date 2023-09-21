@@ -3,7 +3,6 @@
 {% block title %} Search Result {% endblock %}
 
 {% block content %}
-<h2>API Search Results...</h2>
 
 {% if object %}
 <p><b>MSISD Number: {{ object.msisdn }}</b></p>
@@ -14,6 +13,11 @@
 {% else %}
 <p>no comments exist</p>
 {% endif %}
+
+<form action="/api/msisd/api-search/" method="GET">
+    <input type="number" name="msisdn" required placeholder="Enter another number..."/>
+    <input type="submit" />
+</form>
 
 {% endblock content %}
 

@@ -34,29 +34,6 @@ class MsisdViewset(viewsets.ModelViewSet):
         serializer.save()
 
 
-"""def msisd_result_view(request, msisdn=5492216176161):
-    #Get detail using MSISDN.
-    msisd_list = MSISD.objects.all()
-    msisd_data = msisd_list.filter(msisdn=msisdn)
-    return render(request, 'msisd_result.html', {'msisd_data': msisd_data})
-
-
-def msisdn_search(request):
-    #View for searching MSISD API.
-
-    if request.method == 'POST':
-        form = GetMSISDNForm(request.POST)
-        # Check if form is valid
-        if form.is_valid():
-            # This doesn't do anything yet
-            return reverse('msisd:msisd-detail', args=[form.msisdn])
-    else:
-        # Get a blank form
-        form = GetMSISDNForm()
-
-    return render(request, 'msisd_search.html', {'form': form})"""
-
-
 def msisdn_base_view(request):
     context = {}
     return render(request, "base.html", context=context)
@@ -69,13 +46,13 @@ def msisdn_search_view(request, *args, **kwargs):
 
     msisd_object = None
     if msisdn is not None:
-        msisd_object = MSISD.objects.get(msisdn=msisdn)
-        # msisd_object = MSISD.objects.all().filter(msisdn=int(msisdn))
-        print(f"MSISD subsc. num.: {msisd_object.subscriber_number}")
-        print(f"MSISD MNO: {msisd_object.MNO}")
+        if MSISD.objects.filter(msisdn=msisdn).exists():
+            # If entry exists in database
+            msisd_object = MSISD.objects.get(msisdn=msisdn)
+        else:
+            return render(request, "base.html",
+                          {"message": "The number does not exist in database"})
 
-    print(type(msisd_object))
     context = {"object": msisd_object}
-    # print(f"context: {context['object']}")
 
     return render(request, "search.html", context)
