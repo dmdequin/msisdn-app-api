@@ -1,17 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 {% if object %}
-    {% for data in object %}
+<h1>there is a thing</h1>
+<!--     {% for data in object %}
         <h1>MSISDN: {{ data.msisdn }}</h1>
         Country Code: {{ data.country_code }}<br>
         Country Identifier: {{ data.country_identifier }}<br>
         Mobil Network Operator: {{ data.MNO }}<br>
         Subscriber Number: {{ data.subscriber_number }}
-    {% endfor %}
+    {% endfor %} -->
+<h2>{{ object.msisdn }}</h2>
+<p>{{ object.MNO }}</p>
+<p>{{ object.country_code }}</p>
+<p>{{ object.subscriber_number }}</p>
+<p>{{ object.country_identifier }}</p>
 {% else %}
 <p>no comments exist</p>
 {% endif %}
 
 {% endblock content %}
+
+<footer>
+    <a href="http://localhost:8000/api/msisd/api-search-home/">Home</a>
+</footer>

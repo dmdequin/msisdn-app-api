@@ -18,7 +18,7 @@ app_name = 'msisd'
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('api-search/', views.msisdn_base_view),
+    path('api-search-home/', views.msisdn_base_view),
     path('api-search/', views.msisdn_search_view),
     # api/msisd/search/
     # path('search/', views.msisdn_search),
