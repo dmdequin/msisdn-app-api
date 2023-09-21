@@ -3,19 +3,22 @@
 {% block title %} Search Result {% endblock %}
 
 {% block content %}
-<h1>MSISDN Search Results...</h1>
-<p>This is a test.</p>
+<h2>API Search Results...</h2>
 
 {% if object %}
-<h1>there is a thing</h1>
-<h2>{{ object.msisdn }}</h2>
-<p>{{ object.MNO }}</p>
-<p>{{ object.country_code }}</p>
-<p>{{ object.subscriber_number }}</p>
-<p>{{ object.country_identifier }}</p>
+<p><b>MSISD Number: {{ object.msisdn }}</b></p>
+<p>Mobile Network Operator: {{ object.MNO }}</p>
+<p>Subscriber Number: {{ object.subscriber_number }}</p>
+<p>Country Identifier: {{ object.country_identifier }}</p>
+<p>Country Code: {{ object.country_code }}</p>
 {% else %}
 <p>no comments exist</p>
 {% endif %}
 
 {% endblock content %}
+
+{% block footer %}
+<a href="http://localhost:8000/api/msisd/api-search-home/">Home</a>
+{% endblock footer %}
+
 

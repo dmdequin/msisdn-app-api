@@ -8,17 +8,17 @@
     </head>
     <body>
         <center>
+            <h1>MSISDN API</h1>
             {% block content %}
-            <h1>Search the MSISDN API</h1>
             <form action="/api/msisd/api-search/" method="GET">
-                <input type="text" name="msisdn" />
+                <input type="text" name="msisdn" required/>
                 <input type="submit" />
             </form>
             {% endblock %}
         </center>
     </body>
     <footer>
-        <a href="http://localhost:8000/api/msisd/api-search/">api-search</a>
-        <a href="http://localhost:8000/api/msisd/api-search-home/">Home</a>
+        {% block footer %}
+        {% endblock footer%}
     </footer>
 </html>
