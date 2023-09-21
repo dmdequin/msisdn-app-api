@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if object %}
+<h1>{{ object.msisdn }}</h1>
+<p>{{ object.MNO }}</p>
+<p>{{ object.country_code }}</p>
+<p>{{ object.subscriber_number }}</p>
+<p>{{ object.country_identifier }}</p>
+{% else %}
+<p>no comments exist</p>
+{% endif %}
+
+{% endblock content %}

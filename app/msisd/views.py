@@ -5,11 +5,10 @@ from rest_framework import viewsets
 
 from core.models import MSISD
 from msisd import serializers
-from msisd.forms import GetMSISDNForm
+# from msisd.forms import GetMSISDNForm
 
 from django.shortcuts import render
-# from django.http import HttpResponseRedirect
-from django.urls import reverse
+# from django.urls import reverse
 
 
 class MsisdViewset(viewsets.ModelViewSet):
@@ -35,16 +34,15 @@ class MsisdViewset(viewsets.ModelViewSet):
         serializer.save()
 
 
-# This is hard coded for now...
-def get_msisd(request, msisdn=5492216176161):
-    """Get detail using MSISDN."""
+"""def msisd_result_view(request, msisdn=5492216176161):
+    #Get detail using MSISDN.
     msisd_list = MSISD.objects.all()
     msisd_data = msisd_list.filter(msisdn=msisdn)
     return render(request, 'msisd_result.html', {'msisd_data': msisd_data})
 
 
-def search_msisdn(request):
-    """View for searching MSISD API."""
+def msisdn_search(request):
+    #View for searching MSISD API.
 
     if request.method == 'POST':
         form = GetMSISDNForm(request.POST)
@@ -56,4 +54,24 @@ def search_msisdn(request):
         # Get a blank form
         form = GetMSISDNForm()
 
-    return render(request, 'msisd_search.html', {'form': form})
+    return render(request, 'msisd_search.html', {'form': form})"""
+
+
+def msisdn_base_view(request):
+    context = {}
+    return render(request, "base.html", context=context)
+
+
+def msisdn_search_view(request):
+    """View for searching the MSISD API."""
+    query_dict = request.GET  # this is a dictionary
+    msisdn = query_dict.get("msisdn")
+    print(msisdn, type(msisdn))
+
+    msisd_object = None
+    if msisdn is not None:
+        msisd_object = MSISD.objects.get(msisdn=msisdn)
+        print(f"MSISD subsc. num.: {msisd_object.subscriber_number}")
+    print(msisd_object)
+    context = {"object": msisd_object}
+    return render(request, "search.html", context=context)
