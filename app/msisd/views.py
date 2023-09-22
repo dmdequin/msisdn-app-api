@@ -6,7 +6,9 @@ from rest_framework import viewsets
 from core.models import MSISD
 from msisd import serializers
 
-from django.shortcuts import render
+from django.shortcuts import render  # , redirect
+# from django.contrib import messages
+# from django.http import HttpResponse
 
 
 class MsisdViewset(viewsets.ModelViewSet):
