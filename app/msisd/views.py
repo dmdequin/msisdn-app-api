@@ -51,7 +51,7 @@ def msisdn_search_view(request, *args, **kwargs):
             msisd_object = MSISD.objects.get(msisdn=msisdn)
         else:
             return render(request, "base.html",
-                          {"message": "The number does not exist in database"})
+                          {"message": "Number does not exist in database"})
 
     context = {"object": msisd_object}
 

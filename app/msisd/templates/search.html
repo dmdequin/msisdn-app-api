@@ -4,6 +4,13 @@
 
 {% block content %}
 
+<h3>Search the database:</h3>
+<form action="/api/msisd/api-search/" method="GET">
+    <input type="number" name="msisdn" required placeholder="Enter an MSISD number."/>
+    <input type="submit" />
+</form>
+<p></p><br>
+<h3>Search Result:</h3>
 {% if object %}
 <p><b>MSISD Number: {{ object.msisdn }}</b></p>
 <p>Mobile Network Operator: {{ object.MNO }}</p>
@@ -13,11 +20,6 @@
 {% else %}
 <p>no comments exist</p>
 {% endif %}
-
-<form action="/api/msisd/api-search/" method="GET">
-    <input type="number" name="msisdn" required placeholder="Enter another number..."/>
-    <input type="submit" />
-</form>
 
 {% endblock content %}
 
