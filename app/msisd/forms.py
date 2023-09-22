@@ -5,8 +5,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-# from msisd.serializers import MsisdDetailSerializer
-
 
 class GetMSISDNForm(forms.Form):
     """Class for the MSISD form."""
@@ -21,7 +19,5 @@ class GetMSISDNForm(forms.Form):
 
         if not msisdn:
             raise ValidationError(_('You must enter an MSISDN!'))
-
-        # serializer = MsisdDetailSerializer(msisdn)
 
         return msisdn

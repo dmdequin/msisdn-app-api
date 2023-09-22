@@ -5,10 +5,8 @@ from rest_framework import viewsets
 
 from core.models import MSISD
 from msisd import serializers
-# from msisd.forms import GetMSISDNForm
 
 from django.shortcuts import render
-# from django.urls import reverse
 
 
 class MsisdViewset(viewsets.ModelViewSet):
@@ -35,6 +33,7 @@ class MsisdViewset(viewsets.ModelViewSet):
 
 
 def msisdn_base_view(request):
+    """View for the API homepage."""
     context = {}
     return render(request, "base.html", context=context)
 

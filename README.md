@@ -1,29 +1,37 @@
 # msisdn-app-api
 MSISDN App API
 
-Project Description:  Create a Django app that takes an MSISDN (Mobile Station International Subscriber Directory Number) as an input and returns information such as:
+Project Description:  Create a Django app that takes an MSISDN (Mobile Station International Subscriber Directory Number) as an input and returns associated information, including:
 - MNO (Mobile Network Operator) identifier
-- country dialling code
+- country dialing code
 - subscriber number and
 - country identifier (ISO 3166-1-alpha-2)
 
 
 ## Project requirements
-Running this project locally requires installation of Docker Desktop. Since development is all done through Docker, there are no other local installations needed.
+**Git**:
+You will need Git to clone the project repository.
+
+**Docker Desktop**:
+Running this project locally requires installation of Docker Desktop.</br>
+Since development is all done through Docker, there are no other local installations needed.
 
 I personally used a version of Docker suitable for Ubutu WSL, but the OS should not matter. Versions I installed were:
 - Docker v24.0.6
 - Docker-compose v2.20.2
 
 ## Getting started with local development
-Run ```docker build .``` to build the docker image.
+Install Git and Docker Desktop.
 
-Run ```docker-compose build``` to run the above command, but use the docker-compose.yml file.
+In the termninal navigate to a place you would like to clone this repository.
+Run ```git clone https://github.com/dmdequin/msisdn-app-api.git```
+Navigate to the root directory of the project: ```cd msisdn-app-api```
+
+Run ```docker-compose build``` to build the docker image while using the docker-compose.yml file.
 
 ## Run Project with Docker
-
 After building the docker image run: ```docker-compose up```
-Then go to [http://localhost:8000](http://localhost:8000) to see the API in development.
+Then go to [http://localhost:8000/api/msisd/home/](http://localhost:8000/api/msisd/home/) to access the MSISD API search home page.
 
 To test admin functionality go to: [http://localhost:8000/admin](http://localhost:8000/admin)
 Create a superuser in the terminal by entering ```docker-compose run --rm app sh -c "python manage.py createsuperuser```
