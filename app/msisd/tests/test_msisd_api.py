@@ -22,7 +22,7 @@ def detail_url(msisdn):
     return reverse('msisd:msisd-detail', args=[msisdn])
 
 
-def create_msisd_entry(**params):
+def create_msisd_entry(**params):  # params is dict
     """Create and return MSISD object."""
     defaults = {
         'id': 17,
@@ -60,7 +60,7 @@ class PublicMsisdAPITests(TestCase):
         """Test get MSISD detail."""
         msisd = create_msisd_entry(msisdn=87654321)
 
-        url = detail_url(msisd.id)  # from msisd.msisd
+        url = detail_url(msisd.id)  # was msisd.msisd
         res = self.client.get(url)
 
         serializer = MsisdDetailSerializer(msisd)
@@ -76,7 +76,7 @@ class PublicMsisdAPITests(TestCase):
         )
 
         payload = {'country_code': 22}
-        url = detail_url(msisd.id)  # from msisd.msisd
+        url = detail_url(msisd.id)  # was msisd.msisd
         res = self.client.patch(url, payload)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)

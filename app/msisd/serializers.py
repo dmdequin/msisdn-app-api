@@ -11,10 +11,10 @@ class MsisdSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MSISD
-        fields = ['id', 'msisdn', 'MNO', 'country_code',
-                  'subscriber_number', 'country_identifier',
+        fields = ['id', 'msisdn', 'country_code',
+                  'subscriber_number',
                   ]
-        read_only_fields = ['id', 'msisdn']
+        read_only_fields = ['id']  # 'msisdn'
 
     def create(self, validated_data):
         """Create a MSISD object."""

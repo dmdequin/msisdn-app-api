@@ -12,7 +12,7 @@ from msisd import views
 
 
 router = DefaultRouter()
-router.register('msisd', views.MsisdViewset)
+router.register('msisd', views.MsisdViewset)  # api/msisd/msisd/
 
 app_name = 'msisd'
 
