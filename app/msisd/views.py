@@ -8,6 +8,9 @@ from msisd import serializers
 
 from django.shortcuts import render
 
+import phonenumbers
+from phonenumbers.phonenumberutil import region_code_for_number
+
 
 class MsisdViewset(viewsets.ModelViewSet):
     """View for manage MSISD APIs."""
@@ -49,6 +52,18 @@ def msisdn_search_view(request, *args, **kwargs):
             # If entry exists in database
             msisd_object = MSISD.objects.get(msisdn=msisdn)
         else:
+            number = "+" + str(msisdn)
+            print(number)
+            x = phonenumbers.parse(number, None)
+
+            country_code = x.country_code
+            country_identifier = region_code_for_number(x)
+            subscriber_number = x.national_number
+
+            print(country_code)
+            print(country_identifier)
+            print(subscriber_number)
+
             return render(request, "base.html",
                           {"message": "Number does not exist in database"})
 
