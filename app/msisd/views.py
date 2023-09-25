@@ -63,12 +63,19 @@ def msisdn_search_view(request, *args, **kwargs):
                 country_code = x.country_code
                 country_identifier = region_code_for_number(x)
                 subscriber_number = x.national_number
+                payload = {
+                    'msisdn': msisdn,
+                    'country_code': country_code,
+                    'subscriber_number': subscriber_number,
+                    'country_identifier': country_identifier,
+                }
+                print(payload)
 
-                print(country_code)
-                print(country_identifier)
-                print(subscriber_number)
+                # Create MSISD object
+                # msisd = MSISD.objects.create(payload)
 
                 # TODO: Add to DB
+                # res = request.POST(MSISD_URL, msisd)
 
                 return render(request,
                               "base.html",
