@@ -9,7 +9,10 @@ from msisd import serializers
 from django.shortcuts import render
 
 import phonenumbers
-from phonenumbers.phonenumberutil import region_code_for_number
+from phonenumbers.phonenumberutil import (
+    region_code_for_number,
+    NumberParseException,
+)
 
 
 class MsisdViewset(viewsets.ModelViewSet):
@@ -48,24 +51,34 @@ def msisdn_search_view(request, *args, **kwargs):
 
     msisd_object = None
     if msisdn is not None:
+        # If entry exists in database, get object
         if MSISD.objects.filter(msisdn=msisdn).exists():
-            # If entry exists in database
             msisd_object = MSISD.objects.get(msisdn=msisdn)
         else:
+            # Make format phonenumbers compatible
             number = "+" + str(msisdn)
-            print(number)
-            x = phonenumbers.parse(number, None)
+            try:
+                # If valid number
+                x = phonenumbers.parse(number)
+                country_code = x.country_code
+                country_identifier = region_code_for_number(x)
+                subscriber_number = x.national_number
 
-            country_code = x.country_code
-            country_identifier = region_code_for_number(x)
-            subscriber_number = x.national_number
+                print(country_code)
+                print(country_identifier)
+                print(subscriber_number)
 
-            print(country_code)
-            print(country_identifier)
-            print(subscriber_number)
+                # TODO: Add to DB
 
-            return render(request, "base.html",
-                          {"message": "Number does not exist in database"})
+                return render(request,
+                              "base.html",
+                              {"message": "Number does not exist in database"})
+
+            except NumberParseException:
+                # If not a valid number, error message.
+                return render(request,
+                              "base.html",
+                              {"message": "Entry invalid, try again."})
 
     context = {"object": msisd_object}
 
