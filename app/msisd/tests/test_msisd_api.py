@@ -25,6 +25,7 @@ def detail_url(msisdn):
 def create_msisd_entry(**params):
     """Create and return MSISD object."""
     defaults = {
+        'id': 17,
         'msisdn': 905519555325,
         'MNO': "Turkcell",
         'country_code': 90,
@@ -46,7 +47,7 @@ class PublicMsisdAPITests(TestCase):
     def test_retrieve_msisd_list(self):
         """Test retrieving a list of msisd objects."""
         create_msisd_entry()
-        create_msisd_entry(msisdn=12345678)
+        create_msisd_entry(id=13, msisdn=12345678)
 
         res = self.client.get(MSISD_URL)
 
@@ -57,9 +58,9 @@ class PublicMsisdAPITests(TestCase):
 
     def test_get_msisd_detail(self):
         """Test get MSISD detail."""
-        msisd = create_msisd_entry()
+        msisd = create_msisd_entry(msisdn=87654321)
 
-        url = detail_url(msisd.msisdn)
+        url = detail_url(msisd.id)  # from msisd.msisd
         res = self.client.get(url)
 
         serializer = MsisdDetailSerializer(msisd)
@@ -75,7 +76,7 @@ class PublicMsisdAPITests(TestCase):
         )
 
         payload = {'country_code': 22}
-        url = detail_url(msisd.msisdn)
+        url = detail_url(msisd.id)  # from msisd.msisd
         res = self.client.patch(url, payload)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -83,16 +84,21 @@ class PublicMsisdAPITests(TestCase):
         self.assertEqual(msisd.country_code, payload['country_code'])
         self.assertEqual(msisd.country_identifier, an_identifier)
 
+    def test_create_msisd(self):
+        """Test creating msisd object."""
+        msisd = create_msisd_entry()
+        self.assertEqual(str(msisd), str(msisd.msisdn))
+
     """def test_create_msisd_entry(self):
         # Test creating a msisd entry.
         payload = {
             'msisdn': 111111111100,
-            'MNO': "Phone Provider",
-            'country_code': 11,
-            'subscriber_number': 1111111111,
+            'MNO': "Test Provider",
+            'country_code': 13,
+            'subscriber_number': 1313131415,
             'country_identifier': 'XX',
         }
-        res = self.client.post(MSISD_URL, payload, format='json')
+        res = self.client.post(MSISD_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         msisd = MSISD.objects.get(msisdn=res.data['msisdn'])
