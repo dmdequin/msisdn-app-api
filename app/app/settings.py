@@ -142,3 +142,5 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/msisd/api-search/',
+                        'http://localhost:8000/api/msisd/home/']

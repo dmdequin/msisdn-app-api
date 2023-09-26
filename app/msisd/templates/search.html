@@ -5,7 +5,7 @@
 {% block content %}
 
 <h3>Search the database:</h3>
-<form action="/api/msisd/api-search/" method="GET">
+<form action="/api/msisd/api-search/" method="POST">
     <input type="number" name="msisdn" required placeholder="Enter an MSISD number."/>
     <input type="submit" />
 </form>
@@ -22,6 +22,12 @@
 {% endif %}
 
 {% endblock content %}
+
+{% if message %}
+<p>{{ message }}</p>
+<p></p>
+<p></p>
+{% endif %}
 
 {% block footer %}
 <a href="http://localhost:8000/api/msisd/home/">Home</a>

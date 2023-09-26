@@ -89,7 +89,7 @@ class PublicMsisdAPITests(TestCase):
         msisd = create_msisd_entry()
         self.assertEqual(str(msisd), str(msisd.msisdn))
 
-    """def test_create_msisd_entry(self):
+    def test_create_msisd_entry(self):
         # Test creating a msisd entry.
         payload = {
             'msisdn': 111111111100,
@@ -104,4 +104,4 @@ class PublicMsisdAPITests(TestCase):
         msisd = MSISD.objects.get(msisdn=res.data['msisdn'])
         for k, v in payload.items():
             self.assertEqual(getattr(msisd, k), v)
-        self.assertEqual(msisd.msisdn, payload['msisdn'])"""
+        self.assertEqual(msisd.msisdn, payload['msisdn'])

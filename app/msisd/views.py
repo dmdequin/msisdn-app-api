@@ -63,8 +63,10 @@ def msisdn_search_view(request, *args, **kwargs):
                 country_code = x.country_code
                 country_identifier = region_code_for_number(x)
                 subscriber_number = x.national_number
+
                 payload = {
                     'msisdn': msisdn,
+                    'MNO': 'unknown',
                     'country_code': country_code,
                     'subscriber_number': subscriber_number,
                     'country_identifier': country_identifier,
@@ -72,14 +74,13 @@ def msisdn_search_view(request, *args, **kwargs):
                 print(payload)
 
                 # Create MSISD object
-                # msisd = MSISD.objects.create(payload)
+                MSISD.objects.create(**payload)
 
-                # TODO: Add to DB
-                # res = request.POST(MSISD_URL, msisd)
+                # Context to pass to html
+                context = {"object": payload,
+                           "message": "New number added to database!"}
 
-                return render(request,
-                              "base.html",
-                              {"message": "Number does not exist in database"})
+                return render(request, 'search.html', context)
 
             except NumberParseException:
                 # If not a valid number, error message.
