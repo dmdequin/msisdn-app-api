@@ -57,6 +57,10 @@ def msisdn_search_view(request, *args, **kwargs):
             context = {"object": msisd_object}
 
             return render(request, "search.html", context)
+        elif len(msisdn) < 7:
+            return render(request,
+                          "base.html",
+                          {"message": "Entry too short, try again."})
         else:
             # Make format phonenumbers compatible
             number = "+" + str(msisdn)
