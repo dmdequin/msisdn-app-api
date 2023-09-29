@@ -71,9 +71,12 @@ def create_msisd_object(request, **payload):
     return render(request, 'search.html', context)
 
 
-def render_page_invalid_number(request):
+def render_page_invalid_number(request, short=False):
     """Render page for invalid numbers."""
     context = {"message": "Entry invalid, try again."}
+
+    if short:
+        context = {"message": "Entry too short, try again."}
 
     return render(request, "base.html", context)
 
@@ -91,9 +94,14 @@ def parse_number_information(msisdn, valid_number):
     return payload
 
 
+def number_is_too_short(number):
+    """Return True if number is too short."""
+    return (len(number) < 7)
+
+
 def msisdn_search_view(request, *args, **kwargs):
     """View for searching the MSISD API."""
-    query_dict = request.GET  # this is a dictionary
+    query_dict = request.GET  # This is a dictionary
     msisdn = query_dict.get("msisdn")
 
     if msisdn is not None:
@@ -102,28 +110,26 @@ def msisdn_search_view(request, *args, **kwargs):
             # If entry in database get object and render page
             return get_msisd_object(request, msisdn)
 
-        elif len(msisdn) < 7:
+        elif number_is_too_short(msisdn):
             # If length < minimum valid international number length
-            context = {"message": "Entry too short, try again."}
-            return render(request, "base.html", context)
+            return render_page_invalid_number(request, 'short')
 
         else:
-            # If not in db long enough make format compatible with phonenumbers
+            # Make format compatible with phonenumbers
             number = "+" + str(msisdn)
-            print(number)
 
             try:
                 # Check if valid phone number
                 valid_number = phonenumbers.parse(number)
+
                 payload = parse_number_information(msisdn, valid_number)
 
                 if payload['country_identifier'] is None:
                     # If country ID not parsable
                     return render_page_invalid_number(request)
 
-                else:
-                    # If number passes create MSISD object and render
-                    return create_msisd_object(request, **payload)
+                # If number passes create MSISD object and render
+                return create_msisd_object(request, **payload)
 
             except NumberParseException:
                 # If number is not able to be parsed
