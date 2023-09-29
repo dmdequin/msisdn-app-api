@@ -90,5 +90,3 @@ def msisdn_search_view(request, *args, **kwargs):
                 return render(request,
                               "base.html",
                               {"message": "Entry invalid, try again."})
-
-
