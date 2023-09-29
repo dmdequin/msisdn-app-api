@@ -110,27 +110,26 @@ def msisdn_search_view(request, *args, **kwargs):
             # If entry in database get object and render page
             return get_msisd_object(request, msisdn)
 
-        elif number_is_too_short(msisdn):
+        if number_is_too_short(msisdn):
             # If length < minimum valid international number length
             return render_page_invalid_number(request, 'short')
 
-        else:
-            # Make format compatible with phonenumbers
-            number = "+" + str(msisdn)
+        # Make format compatible with phonenumbers
+        number = "+" + str(msisdn)
 
-            try:
-                # Check if valid phone number
-                valid_number = phonenumbers.parse(number)
+        try:
+            # Check if valid phone number
+            valid_number = phonenumbers.parse(number)
 
-                payload = parse_number_information(msisdn, valid_number)
+            payload = parse_number_information(msisdn, valid_number)
 
-                if payload['country_identifier'] is None:
-                    # If country ID not parsable
-                    return render_page_invalid_number(request)
-
-                # If number passes create MSISD object and render
-                return create_msisd_object(request, **payload)
-
-            except NumberParseException:
-                # If number is not able to be parsed
+            if payload['country_identifier'] is None:
+                # If country ID not parsable
                 return render_page_invalid_number(request)
+
+            # If number passes create MSISD object and render
+            return create_msisd_object(request, **payload)
+
+        except NumberParseException:
+            # If number is not able to be parsed
+            return render_page_invalid_number(request)
