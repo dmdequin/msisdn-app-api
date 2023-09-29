@@ -65,11 +65,30 @@ def create_msisd_object(request, **payload):
     """Create msisd object and render page."""
     MSISD.objects.create(**payload)
 
-    # Context to pass to html
     context = {"object": payload,
                "message": "New number added to database!"}
 
     return render(request, 'search.html', context)
+
+
+def render_page_invalid_number(request):
+    """Render page for invalid numbers."""
+    context = {"message": "Entry invalid, try again."}
+
+    return render(request, "base.html", context)
+
+
+def parse_number_information(msisdn, valid_number):
+    """Parse various information from given valid number."""
+    payload = {
+        'msisdn': msisdn,
+        'MNO': 'unknown',
+        'country_code': valid_number.country_code,
+        'subscriber_number': valid_number.national_number,
+        'country_identifier': region_code_for_number(valid_number),
+    }
+
+    return payload
 
 
 def msisdn_search_view(request, *args, **kwargs):
@@ -95,23 +114,12 @@ def msisdn_search_view(request, *args, **kwargs):
 
             try:
                 # Check if valid phone number
-                x = phonenumbers.parse(number)
-                country_code = x.country_code
-                country_identifier = region_code_for_number(x)
-                subscriber_number = x.national_number
-
-                payload = {
-                    'msisdn': msisdn,
-                    'MNO': 'unknown',
-                    'country_code': country_code,
-                    'subscriber_number': subscriber_number,
-                    'country_identifier': country_identifier,
-                }
+                valid_number = phonenumbers.parse(number)
+                payload = parse_number_information(msisdn, valid_number)
 
                 if payload['country_identifier'] is None:
                     # If country ID not parsable
-                    context = {"message": "Entry invalid, try again."}
-                    return render(request, "base.html", context)
+                    return render_page_invalid_number(request)
 
                 else:
                     # If number passes create MSISD object and render
@@ -119,6 +127,4 @@ def msisdn_search_view(request, *args, **kwargs):
 
             except NumberParseException:
                 # If number is not able to be parsed
-                context = {"message": "Entry invalid, try again."}
-
-                return render(request, "base.html", context)
+                return render_page_invalid_number(request)
