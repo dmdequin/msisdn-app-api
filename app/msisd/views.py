@@ -59,7 +59,6 @@ def msisdn_search_view(request, *args, **kwargs):
 
             return render(request, "search.html", context)
 
-
         elif len(msisdn) < 7:
             # If length < minimum valid international number length
             return render(request,
@@ -86,11 +85,11 @@ def msisdn_search_view(request, *args, **kwargs):
                 }
                 # print(payload)
 
-                if payload['country_identifier'] == None:
+                if payload['country_identifier'] is None:
                     # If country ID not parsable
                     return render(request,
-                              "base.html",
-                              {"message": "Entry invalid, try again."})
+                                  "base.html",
+                                  {"message": "Entry invalid, try again."})
 
                 else:
                     # If number passes create MSISD object
