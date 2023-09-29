@@ -13,15 +13,18 @@
     </head>
     <body>
         <center>
+            {% block form %}
             <h1>MSISD API</h1>
-            {% block content %}
+
             <h3>Search the database:</h3>
             <form action="/api/msisd/api-search/" method="GET">
                 <input type="number" name="msisdn" required placeholder="Enter an MSISD number..."/>
                 <input type="submit" />
                 {% csrf_token %}
             </form>
+            {% endblock %}
 
+            {% block content %}
             {% endblock %}
             {% if message %}
             <p>{{ message }}</p>

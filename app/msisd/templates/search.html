@@ -4,12 +4,6 @@
 
 {% block content %}
 
-<h3>Search the database:</h3>
-<form action="/api/msisd/api-search/" method="GET">
-    <input type="number" name="msisdn" required placeholder="Enter an MSISD number."/>
-    <input type="submit" />
-    {% csrf_token %}
-</form>
 <p></p><br>
 <h3>Search Result:</h3>
 {% if object %}
@@ -19,11 +13,10 @@
 <p>Country Identifier: {{ object.country_identifier }}</p>
 <p>Country Code: {{ object.country_code }}</p>
 {% endif %}
-
+<p></p><br>
 {% endblock content %}
 
 {% if message %}
-<p><br></p>
 <p>{{ message }}</p>
 {% endif %}
 
