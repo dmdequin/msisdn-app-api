@@ -5,28 +5,26 @@
 {% block content %}
 
 <h3>Search the database:</h3>
-<form action="/api/msisd/api-search/" method="POST">
+<form action="/api/msisd/api-search/" method="GET">
     <input type="number" name="msisdn" required placeholder="Enter an MSISD number."/>
     <input type="submit" />
+    {% csrf_token %}
 </form>
 <p></p><br>
 <h3>Search Result:</h3>
 {% if object %}
-<p><b>MSISD Number: {{ object.msisdn }}</b></p>
+<p>MSISD Number: {{ object.msisdn }}</p>
 <p>Mobile Network Operator: {{ object.MNO }}</p>
 <p>Subscriber Number: {{ object.subscriber_number }}</p>
 <p>Country Identifier: {{ object.country_identifier }}</p>
 <p>Country Code: {{ object.country_code }}</p>
-{% else %}
-<p>no comments exist</p>
 {% endif %}
 
 {% endblock content %}
 
 {% if message %}
+<p><br></p>
 <p>{{ message }}</p>
-<p></p>
-<p></p>
 {% endif %}
 
 {% block footer %}

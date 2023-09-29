@@ -54,6 +54,9 @@ def msisdn_search_view(request, *args, **kwargs):
         # If entry exists in database, get object
         if MSISD.objects.filter(msisdn=msisdn).exists():
             msisd_object = MSISD.objects.get(msisdn=msisdn)
+            context = {"object": msisd_object}
+
+            return render(request, "search.html", context)
         else:
             # Make format phonenumbers compatible
             number = "+" + str(msisdn)
@@ -88,6 +91,4 @@ def msisdn_search_view(request, *args, **kwargs):
                               "base.html",
                               {"message": "Entry invalid, try again."})
 
-    context = {"object": msisd_object}
 
-    return render(request, "search.html", context)
