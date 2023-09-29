@@ -51,21 +51,27 @@ def msisdn_search_view(request, *args, **kwargs):
 
     msisd_object = None
     if msisdn is not None:
-        # If entry exists in database, get object
+
         if MSISD.objects.filter(msisdn=msisdn).exists():
+            # If entry exists in database, get object
             msisd_object = MSISD.objects.get(msisdn=msisdn)
             context = {"object": msisd_object}
 
             return render(request, "search.html", context)
+
+
         elif len(msisdn) < 7:
+            # If length < minimum valid international number length
             return render(request,
                           "base.html",
                           {"message": "Entry too short, try again."})
+
         else:
-            # Make format phonenumbers compatible
+            # If not in db long enough make format compatible with phonenumbers
             number = "+" + str(msisdn)
+
             try:
-                # If valid number
+                # Check if valid phone number
                 x = phonenumbers.parse(number)
                 country_code = x.country_code
                 country_identifier = region_code_for_number(x)
@@ -78,19 +84,26 @@ def msisdn_search_view(request, *args, **kwargs):
                     'subscriber_number': subscriber_number,
                     'country_identifier': country_identifier,
                 }
-                print(payload)
+                # print(payload)
 
-                # Create MSISD object
-                MSISD.objects.create(**payload)
+                if payload['country_identifier'] == None:
+                    # If country ID not parsable
+                    return render(request,
+                              "base.html",
+                              {"message": "Entry invalid, try again."})
 
-                # Context to pass to html
-                context = {"object": payload,
-                           "message": "New number added to database!"}
+                else:
+                    # If number passes create MSISD object
+                    MSISD.objects.create(**payload)
 
-                return render(request, 'search.html', context)
+                    # Context to pass to html
+                    context = {"object": payload,
+                               "message": "New number added to database!"}
+
+                    return render(request, 'search.html', context)
 
             except NumberParseException:
-                # If not a valid number, error message.
+                # If number is not able to be parsed
                 return render(request,
                               "base.html",
                               {"message": "Entry invalid, try again."})
