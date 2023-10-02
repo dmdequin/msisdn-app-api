@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
         """Create, save and return a new user."""
-        if not email:  # Require user to enter an email address
+        if not email:  # Require user to enter an email address.
             raise ValueError('User must have an email address.')
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
@@ -39,14 +39,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UserManager()  # assign user manager
+    objects = UserManager()  # Assign user manager.
 
     USERNAME_FIELD = 'email'
 
 
 class MSISD(models.Model):
     """MSISD object."""
-    msisdn = models.PositiveBigIntegerField(unique=True)  # primary_key
+    msisdn = models.PositiveBigIntegerField(unique=True)
     MNO = models.CharField(max_length=255)
     country_code = models.PositiveBigIntegerField()
     subscriber_number = models.PositiveBigIntegerField()

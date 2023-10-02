@@ -16,21 +16,21 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         """Model and fields used by the serializer"""
         model = get_user_model()
-        # Fields available to be changed by API (not by admin)
+        # Fields available to be changed by API (not by admin).
         fields = ['email', 'password', 'name']
-        # extra metadata regarding the fields
+        # Extra metadata regarding the fields.
         extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
 
-    # Override default create method to ensure data validation
+    # Override default create method to ensure data validation.
     def create(self, validated_data):
         """Create and return a user with encrypted password."""
         return get_user_model().objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
         """Update and return user."""
-        # This overrides the default update method
+        # This overrides the default update method.
         password = validated_data.pop('password', None)
-        # call update method on ModelSerializer base class
+        # Call update method on ModelSerializer base class.
         user = super().update(instance, validated_data)
 
         if password:
@@ -59,7 +59,7 @@ class AuthTokenSerializer(serializers.Serializer):
         )
         if not user:
             msg = _('Unable to authenticate with provided credentials.')
-            # View will translate this to an HTTP bad request
+            # View will translate this to an HTTP bad request.
             raise serializers.ValidationError(msg, code='authorization')
 
         attrs['user'] = user

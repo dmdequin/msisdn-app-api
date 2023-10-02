@@ -3,9 +3,6 @@ Views for MSISD APIs.
 """
 from rest_framework import viewsets
 
-from core.models import MSISD
-from msisd import serializers
-
 from django.shortcuts import render
 
 import phonenumbers
@@ -13,6 +10,9 @@ from phonenumbers.phonenumberutil import (
     region_code_for_number,
     NumberParseException,
 )
+
+from core.models import MSISD
+from msisd import serializers
 
 
 class MsisdViewset(viewsets.ModelViewSet):
@@ -54,7 +54,7 @@ def in_database(msisdn):
 
 
 def get_msisd_object(request, msisdn):
-    """Get msisdn object from db and render the page."""
+    """Get msisdn object from db and render page."""
     msisd_object = MSISD.objects.get(msisdn=msisdn)
     context = {"object": msisd_object}
 
@@ -101,18 +101,19 @@ def number_is_too_short(number):
 
 def msisdn_search_view(request, *args, **kwargs):
     """View for searching the MSISD API."""
-    query_dict = request.GET  # This is a dictionary
+    query_dict = request.GET  # This is a dictionary.
     msisdn = query_dict.get("msisdn")
 
     if msisdn is not None:
 
+        # If entry in database get object and render page.
         if in_database(msisdn):
-            # If entry in database get object and render page
             return get_msisd_object(request, msisdn)
 
+        # If length < minimum valid international number length.
         if number_is_too_short(msisdn):
-            # If length < minimum valid international number length
-            return render_page_invalid_number(request, 'short')
+            # Return page with message that number is too short.
+            return render_page_invalid_number(request, short=True)
 
         # Make format compatible with phonenumbers
         number = "+" + str(msisdn)
@@ -123,13 +124,15 @@ def msisdn_search_view(request, *args, **kwargs):
 
             payload = parse_number_information(msisdn, valid_number)
 
+            # If country ID not parsable...
             if payload['country_identifier'] is None:
-                # If country ID not parsable
+                # Render home page with message.
                 return render_page_invalid_number(request)
 
-            # If number passes create MSISD object and render
+            # If number passes create MSISD object and render page.
             return create_msisd_object(request, **payload)
 
+        # If number is not able to be parsed...
         except NumberParseException:
-            # If number is not able to be parsed
+            # Render home page with message.
             return render_page_invalid_number(request)
