@@ -6,7 +6,7 @@ from rest_framework import serializers
 from core.models import MSISD
 
 
-class MsisdSerializer(serializers.ModelSerializer):
+class MSISDSerializer(serializers.ModelSerializer):
     """Serializer for MSISD objects."""
 
     class Meta:
@@ -23,8 +23,8 @@ class MsisdSerializer(serializers.ModelSerializer):
         return msisd
 
 
-class MsisdDetailSerializer(MsisdSerializer):
+class MSISDDetailSerializer(MSISDSerializer):
     """Serializer for MSISD detail view."""
 
-    class Meta(MsisdSerializer.Meta):
-        fields = MsisdSerializer.Meta.fields + ['MNO', 'country_identifier']
+    class Meta(MSISDSerializer.Meta):
+        fields = MSISDSerializer.Meta.fields + ['MNO', 'country_identifier']
