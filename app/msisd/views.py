@@ -71,12 +71,17 @@ def create_msisd_object(request, **payload):
     return render(request, 'search.html', context)
 
 
-def render_page_invalid_number(request, short=False):
+def render_page_invalid_number(request,
+                               short=False,
+                               no_country=False):
     """Render page for invalid numbers."""
     context = {"message": "Entry invalid, try again."}
 
     if short:
         context = {"message": "Entry too short, try again."}
+
+    if no_country:
+        context = {"message": "Could not parse country data, try again."}
 
     return render(request, "base.html", context)
 
@@ -135,7 +140,8 @@ def msisdn_search_view(request, *args, **kwargs):
         # If country ID not parsable
         if payload['country_identifier'] is None:
             # Render home page with error message.
-            return render_page_invalid_number(request)
+            return render_page_invalid_number(request,
+                                              no_country=True)
 
         # If number passes create MSISD object and render page.
         return create_msisd_object(request, **payload)
