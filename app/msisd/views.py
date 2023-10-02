@@ -95,7 +95,10 @@ def parse_number_information(msisdn, valid_number):
 
 
 def number_is_too_short(number):
-    """Return True if number is too short."""
+    """
+    Return True if number is too short.
+    Minimum length for international numbers is 7.
+    """
     return (len(number) < 7)
 
 
@@ -110,29 +113,29 @@ def msisdn_search_view(request, *args, **kwargs):
         if in_database(msisdn):
             return get_msisd_object(request, msisdn)
 
-        # If length < minimum valid international number length.
+        # If number is too short
         if number_is_too_short(msisdn):
-            # Return page with message that number is too short.
+            # Render page with error message.
             return render_page_invalid_number(request, short=True)
 
-        # Make format compatible with phonenumbers
+        # Make format compatible with phonenumbers.
         number = "+" + str(msisdn)
 
+        # Try to check if phone number is valid.
         try:
-            # Check if valid phone number
             valid_number = phonenumbers.parse(number)
 
-            payload = parse_number_information(msisdn, valid_number)
-
-            # If country ID not parsable...
-            if payload['country_identifier'] is None:
-                # Render home page with message.
-                return render_page_invalid_number(request)
-
-            # If number passes create MSISD object and render page.
-            return create_msisd_object(request, **payload)
-
-        # If number is not able to be parsed...
         except NumberParseException:
-            # Render home page with message.
+            # If invalid, render home page with error message.
             return render_page_invalid_number(request)
+
+        # Parse information from the number.
+        payload = parse_number_information(msisdn, valid_number)
+
+        # If country ID not parsable
+        if payload['country_identifier'] is None:
+            # Render home page with error message.
+            return render_page_invalid_number(request)
+
+        # If number passes create MSISD object and render page.
+        return create_msisd_object(request, **payload)
