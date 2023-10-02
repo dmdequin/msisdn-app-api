@@ -90,7 +90,7 @@ class PublicMSISDAPITests(TestCase):
         self.assertEqual(str(msisd), str(msisd.msisdn))
 
     def test_create_msisd_entry(self):
-        # Test creating a msisd entry.
+        # Test creating a msisd entry
         payload = {
             'msisdn': 111111111100,
             'MNO': "Test Provider",

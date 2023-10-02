@@ -24,7 +24,7 @@ class CreateTokenView(ObtainAuthToken):
     serializer uses name and password)
     """
     serializer_class = AuthTokenSerializer
-    # Enable browsable API.
+    # Enable browsable API
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
 
@@ -34,7 +34,7 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    # Override default get_object method.
+    # Override default get_object method
     def get_object(self):
         """Retrieve and return the authenticated user."""
         return self.request.user

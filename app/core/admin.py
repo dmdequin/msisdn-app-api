@@ -10,10 +10,10 @@ from core import models
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""
-    # Add what is listed on admin page.
+    # Add what is listed on admin page
     ordering = ['id']
     list_display = ['email', 'name']
-    # Sections displayed based on custom user model.
+    # Sections displayed based on custom user model
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {'fields': ('name',)}),
@@ -30,10 +30,10 @@ class UserAdmin(BaseUserAdmin):
         (_('Important dates'), {'fields': ('last_login',)}),
     )
     readonly_fields = ['last_login']
-    # Support for creating users.
+    # Support for creating users
     add_fieldsets = (
         (None, {
-            'classes': ('wide',),  # For custom CSS styling.
+            'classes': ('wide',),  # For custom CSS styling
             'fields': (
                 'email',
                 'password1',
@@ -47,6 +47,6 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-# Assigns the custom UserAdmin class for the model manager.
+# Assigns the custom UserAdmin class for the model manager
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.MSISD)

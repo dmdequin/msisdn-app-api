@@ -23,9 +23,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Generates schema file for project.
+    # Generates schema file for project
     path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
-    # Uses schema defined above.
+    # Uses schema defined above
     path(
         'api/docs/',
         SpectacularSwaggerView.as_view(url_name='api-schema'),

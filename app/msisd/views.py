@@ -27,10 +27,10 @@ class MSISDViewset(viewsets.ModelViewSet):
     def get_serializer_class(self):
         """Return the serializer class for request."""
         if self.action == 'list':
-            # Return standard serializer if action is list.
+            # Return standard serializer if action is list
             return serializers.MSISDSerializer
 
-        # Else, return detailed serializer.
+        # Else, return detailed serializer
         return self.serializer_class
 
     def perform_create(self, serializer):
@@ -109,39 +109,39 @@ def number_is_too_short(number):
 
 def msisdn_search_view(request, *args, **kwargs):
     """View for searching the MSISD API."""
-    query_dict = request.GET  # This is a dictionary.
+    query_dict = request.GET  # This is a dictionary
     msisdn = query_dict.get("msisdn")
 
     if msisdn is not None:
 
-        # If entry in database get object and render page.
+        # If entry in database get object and render page
         if in_database(msisdn):
             return get_msisd_object(request, msisdn)
 
         # If number is too short
         if number_is_too_short(msisdn):
-            # Render page with error message.
+            # Render page with error message
             return render_page_invalid_number(request, short=True)
 
-        # Make format compatible with phonenumbers.
+        # Make format compatible with phonenumbers
         number = "+" + str(msisdn)
 
-        # Try to check if phone number is valid.
+        # Try to check if phone number is valid
         try:
             valid_number = phonenumbers.parse(number)
 
         except NumberParseException:
-            # If invalid, render home page with error message.
+            # If invalid, render home page with error message
             return render_page_invalid_number(request)
 
-        # Parse information from the number.
+        # Parse information from the number
         payload = parse_number_information(msisdn, valid_number)
 
         # If country ID not parsable
         if payload['country_identifier'] is None:
-            # Render home page with error message.
+            # Render home page with error message
             return render_page_invalid_number(request,
                                               no_country=True)
 
-        # If number passes create MSISD object and render page.
+        # If number passes create MSISD object and render page
         return create_msisd_object(request, **payload)
