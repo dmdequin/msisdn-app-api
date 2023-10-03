@@ -57,3 +57,8 @@ The app in development can be run locally for testing. To do so:
 - Enter the proxy directory and run ```docker build .``` to build the docker image there.
 - Go back to the main directory and run ```docker-compose -f docker-compose-deploy.yml up``` to run the application.
 - In the browser go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and test out the various endpoints.
+
+
+## Deployed App
+
+The deployed version of this app can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/](http://ec2-34-239-104-90.compute-1.amazonaws.com/). All endpoints can be tested from here. For example, the documentation can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/).
