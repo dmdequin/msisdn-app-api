@@ -22,4 +22,12 @@
 
 {% block footer %}
 <a href="http://localhost:8000/api/msisd/home/">Home</a>
+
+{% comment %} {% if APP_VERSION == deploy %}
+<a href="http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/">deploy_home</a>
+{% elif APP_VERSION == dev %}
+<a href="http://localhost:8000/api/msisd/home/">dev_home</a>
+{% elif APP_VERSION == deploy_test %}
+<a href="http://127.0.0.1:8000/api/msisd/home/">deploytest_home</a>
+{% endif %} {% endcomment %}
 {% endblock footer %}

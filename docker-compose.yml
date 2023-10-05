@@ -24,6 +24,12 @@ services:
       - DEBUG=1
     depends_on:
       - db
+    networks:
+      - app
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://admin:admin@localhost:3100/loki/api/v1/push"
 
   db:
     image: postgres:13-alpine
@@ -33,7 +39,30 @@ services:
       - POSTGRES_DB=devdb
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
+    networks:
+      - app
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    networks:
+      - app
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    networks:
+      - app
 
 volumes:
   dev-db-data:
   dev-static-data:
+
+networks:
+  app:
+    name: app
