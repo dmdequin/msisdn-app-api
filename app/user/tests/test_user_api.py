@@ -14,6 +14,8 @@ CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
 
+TEST_EMAIL = 'test@example.com'
+TEST_NAME = 'Test Name'
 
 def create_user(**params):
     """Create and return a new user."""
@@ -29,9 +31,9 @@ class PublicUserApiTests(TestCase):
     def test_create_user_succeeds(self):
         """Test that craeting a user succeeds."""
         payload = {
-            'email': 'test@example.com',
+            'email': TEST_EMAIL,
             'password': 'testpass123',
-            'name': 'Test Name',
+            'name': TEST_NAME,
         }
         # HTTP Post request to create user API with given payload
         res = self.client.post(CREATE_USER_URL, payload)
@@ -47,9 +49,9 @@ class PublicUserApiTests(TestCase):
     def test_user_with_email_exists_error(self):
         """Test that error returned if user with email already exists."""
         payload = {
-            'email': 'test@example.com',
+            'email': TEST_EMAIL,
             'password': 'testpass123',
-            'name': 'Test Name',
+            'name': TEST_NAME,
         }
         create_user(**payload)
         res = self.client.post(CREATE_USER_URL, payload)
@@ -59,9 +61,9 @@ class PublicUserApiTests(TestCase):
     def test_password_too_short_error(self):
         """Test an error is returned if password too short."""
         payload = {
-            'email': 'test@example.com',
+            'email': TEST_EMAIL,
             'password': 'pw',
-            'name': 'Test Name',
+            'name': TEST_NAME,
         }
         res = self.client.post(CREATE_USER_URL, payload)
 
@@ -75,9 +77,9 @@ class PublicUserApiTests(TestCase):
     def test_create_token_for_user(self):
         """Test generates token for valid credentials."""
         user_details = {
-            'email': 'test@example.com',
+            'email': TEST_EMAIL,
             'password': 'testpass123',
-            'name': 'Test Name',
+            'name': TEST_NAME,
         }
         create_user(**user_details)
 
@@ -93,10 +95,10 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_bad_credentials(self):
         """Test returns error if credentials are invalid."""
-        create_user(email='test@example.com', password='goodpass')
+        create_user(email=TEST_EMAIL, password='goodpass')
 
         # Payload has incorrect password
-        payload = {'email': 'test@example.com', 'password': 'badpass'}
+        payload = {'email': TEST_EMAIL, 'password': 'badpass'}
         res = self.client.post(TOKEN_URL, payload)
 
         # Do not expect a token because password is incorrect
@@ -105,7 +107,7 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_blank_password(self):
         """Test returns error if posting a blank password."""
-        payload = {'email': 'test@example.com', 'password': ''}
+        payload = {'email': TEST_EMAIL, 'password': ''}
         res = self.client.post(TOKEN_URL, payload)
 
         # No token expected beacuse password was empty
@@ -125,9 +127,9 @@ class PrivateUserApiTests(TestCase):
 
     def setUp(self):
         self.user = create_user(
-            email='test@example.com',
+            email=TEST_EMAIL,
             password='testpass123',
-            name='Test Name',
+            name=TEST_NAME,
         )
         self.client = APIClient()
         # Login user
