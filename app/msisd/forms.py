@@ -14,7 +14,7 @@ class GetMSISDNForm(forms.Form):
         cleaned_data = super(GetMSISDNForm, self).clean()
         msisdn = int(cleaned_data.get('msisdn'))
 
-        if type(msisdn) != str:
+        if not isinstance(msisdn, str):
             raise ValidationError(_('Value must be an Integer!'))
 
         if not msisdn:
