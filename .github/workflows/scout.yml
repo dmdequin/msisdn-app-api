@@ -32,9 +32,6 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
 
-      - name: Create annotation for login complete
-        run: echo "Successfully logged into Docker"
-
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
@@ -49,9 +46,6 @@ jobs:
             type=semver,pattern=v{{version}}
             type=sha,prefix=,suffix=,format=short
 
-      - name: Create annotation for extracting metadata
-        run: echo "Successfully extracted metadata"
-
       # Build and push Docker image with Buildx
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
@@ -64,9 +58,11 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Create annotation for build and pushed image complete
-        run: echo "Successfully built and pushed Docker image"
+      - name: Print env variables
+        run: echo "${{ env.REGISTRY }}"
+        run: echo "${{ env.IMAGE_NAME }}"
 
+      # This step fails...
       - name: Docker Scout
         id: docker-scout
         if: ${{ github.event_name == 'push' }}
