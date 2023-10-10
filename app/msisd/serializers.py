@@ -22,6 +22,15 @@ class MSISDSerializer(serializers.ModelSerializer):
 
         return msisd
 
+    def update(self, instance, validated_data):
+        """Update MSISD object."""
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
+
 
 class MSISDDetailSerializer(MSISDSerializer):
     """Serializer for MSISD detail view."""
