@@ -112,9 +112,8 @@ class PrivateMSISDAPITests(TestCase):
         msisd = create_msisd_entry()
         self.assertEqual(str(msisd), str(msisd.msisdn))
 
-
     def test_create_msisd_entry(self):
-        # Test creating a msisd entry
+        """Test creating a msisd entry."""
         payload = {
             'msisdn': 221313131415,
             'MNO': "Test Provider",
@@ -129,3 +128,13 @@ class PrivateMSISDAPITests(TestCase):
         for k, v in payload.items():
             self.assertEqual(getattr(msisd, k), v)
         self.assertEqual(msisd.msisdn, payload['msisdn'])
+
+    def test_delete_msisd_entry(self):
+        """Test deleting a msisd entry successful."""
+        msisd = create_msisd_entry()
+
+        url = detail_url(msisd.id)
+        res = self.client.delete(url)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(MSISD.objects.filter(id=msisd.id).exists())
