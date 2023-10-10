@@ -1,6 +1,7 @@
 """
 Tests for MSISD API.
 """
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
@@ -38,11 +39,33 @@ def create_msisd_entry(**params):  # params is dict
     return msisd
 
 
+def create_user(**params):
+    """Create and return a new user."""
+    return get_user_model().objects.create_user(**params)
+
+
 class PublicMSISDAPITests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
         self.client = APIClient()
+
+    def test_auth_required(self):
+        """Test auth is required to call API."""
+        res = self.client.get(MSISD_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateMSISDAPITests(TestCase):
+    """Test authenticated API requests."""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = create_user(
+            email='user@example.com',
+            password='testpass123')
+        self.client.force_authenticate(self.user)
 
     def test_retrieve_msisd_list(self):
         """Test retrieving a list of msisd objects."""
@@ -89,12 +112,13 @@ class PublicMSISDAPITests(TestCase):
         msisd = create_msisd_entry()
         self.assertEqual(str(msisd), str(msisd.msisdn))
 
+
     def test_create_msisd_entry(self):
         # Test creating a msisd entry
         payload = {
-            'msisdn': 111111111100,
+            'msisdn': 221313131415,
             'MNO': "Test Provider",
-            'country_code': 13,
+            'country_code': 22,
             'subscriber_number': 1313131415,
             'country_identifier': 'XX',
         }
