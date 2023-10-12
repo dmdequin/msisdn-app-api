@@ -3,7 +3,6 @@
 {% block title %} Search Result {% endblock %}
 
 {% block content %}
-
 <p></p><br>
 <h3>Search Result:</h3>
 {% if object %}
@@ -15,10 +14,6 @@
 {% endif %}
 <p></p><br>
 {% endblock content %}
-
-{% if message %}
-<p>{{ message }}</p>
-{% endif %}
 
 {% block footer %}
 <a href="http://localhost:8000/api/msisd/home/">Home</a>
