@@ -59,8 +59,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Print env variables
-        run: echo "${{ env.REGISTRY }}"
-        run: echo "${{ env.IMAGE_NAME }}"
+        run: echo "env.REGISTRY ${{ env.REGISTRY }} and env.IMAGE_NAME ${{ env.IMAGE_NAME }}"
 
       # This step fails...
       - name: Docker Scout
