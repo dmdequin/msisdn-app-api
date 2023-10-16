@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -e  # will make script fail if any step fails
 
 python manage.py wait_for_db
 python manage.py collectstatic --noinput
