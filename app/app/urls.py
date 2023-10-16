@@ -35,7 +35,7 @@ urlpatterns = [
     ),
     path('api/user/', include('user.urls')),
     path('api/msisd/', include('msisd.urls')),  # api/msisd/msisd/
-] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
 
 if settings.DEBUG:
     urlpatterns += static(
