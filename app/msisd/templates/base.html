@@ -1,18 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sketchy/bootstrap.min.css"/>
+    {% comment %} <link rel="stylesheet" href="{% static 'styles.css' %}"/> {% endcomment %}
     <title>{% block title %} MSISD API Search {% endblock %}</title>
   </head>
   <body>
     <center>
+      <br> <br>
       <div class="body">
         {% block form %}
           <h1>MSISD API</h1>
+          <br>
           <h3>Search the database:</h3>
           <form action="/api/msisd/api-search/" method="GET">
             <input type="number" name="msisdn" required placeholder="Enter an MSISD number..."/>
@@ -20,6 +23,7 @@
             {% csrf_token %}
           </form>
         {% endblock %}
+        <br>
         {% block content %}
         {% endblock %}
       </div>
@@ -29,9 +33,13 @@
         {% endif %}
       </div>
     </center>
+    <br>
   </body>
   <footer>
-    {% block footer %}
-    {% endblock footer%}
+    <nav class='navbar navbar-expand-lg bg-light'>
+      <ul>
+        <a href="http://localhost:8000/api/msisd/home/">Home</a>
+      </ul>
+    </nav>
   </footer>
 </html>

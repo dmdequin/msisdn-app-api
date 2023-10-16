@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'user',
     'msisd',
-    #'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
