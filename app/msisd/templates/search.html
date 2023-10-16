@@ -4,28 +4,30 @@
 
 {% block content %}
 <br>
-<h3>Your search results:</h3>
+<div style="text-align: center;">
+  <h3>Your search results:</h3>
+</div>
 <br>
 {% if object %}
 <div style="display: flex; align-items: center; justify-content: center;">
-    <p>MSISD Number: &nbsp;</p>
-    <p class="text-info"> <strong>{{ object.msisdn }}</strong></p>
+  <p>MSISD Number: &nbsp;</p>
+  <p class="text-info"> <strong>{{ object.msisdn }}</strong></p>
 </div>
 <div style="display: flex; align-items: center; justify-content: center;">
-    <p>Mobile Network Operator: &nbsp;</p>
-    <p class="text-info"> <strong>{{ object.MNO }}</strong></p>
+  <p>Mobile Network Operator: &nbsp;</p>
+  <p class="text-info"> <strong>{{ object.MNO }}</strong></p>
 </div>
 <div style="display: flex; align-items: center; justify-content: center;">
-    <p>Subscriber Number: &nbsp;</p>
-    <p class="text-info"> <strong>{{ object.subscriber_number }}</strong></p>
+  <p>Subscriber Number: &nbsp;</p>
+  <p class="text-info"> <strong>{{ object.subscriber_number }}</strong></p>
 </div>
 <div style="display: flex; align-items: center; justify-content: center;">
-    <p>Country Identifier: &nbsp;</p>
-    <p class="text-info"> <strong>{{ object.country_identifier }}</strong></p>
+  <p>Country Identifier: &nbsp;</p>
+  <p class="text-info"> <strong>{{ object.country_identifier }}</strong></p>
 </div>
 <div style="display: flex; align-items: center; justify-content: center;">
-    <p>Country Code: &nbsp;</p>
-    <p class="text-info"> <strong>{{ object.country_code }}</strong></p>
+  <p>Country Code: &nbsp;</p>
+  <p class="text-info"> <strong>{{ object.country_code }}</strong></p>
 </div>
 {% endif %}
 {% endblock content %}

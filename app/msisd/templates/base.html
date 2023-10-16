@@ -10,29 +10,32 @@
     <title>{% block title %} MSISD API Search {% endblock %}</title>
   </head>
   <body>
-    <center>
       <br> <br>
-      <div class="body">
-        <h1>MSISD API</h1>
+      <div class="body" style="align-items: center;">
+        <div style="text-align: center;">
+          <h1>MSISD API</h1>
+        </div>
         <nav class='navbar navbar-expand-lg bg-light'>
           <ul>
             <a href="http://localhost:8000/api/msisd/home/">Home</a>
           </ul>
         </nav>
         <br>
-        <form action="/api/msisd/api-search/" method="GET">
-          <fieldset>
-            <legend>Search the database:</legend>
-              {% comment %} <div class="form-group">
-                <label for="msisdn" class="form-label mt-4">MSISD Number</label>
-                <input type="number" class="form-control" id="msisdn" aria-describedby="emailHelp" placeholder="Enter MSISDN...">
-              </div> {% endcomment %}
-            <label for="msisdn" class="form-label mt-4">MSISD Number :</label>
-            <input type="number" name="msisdn" required placeholder="Enter MSISDN..."/>
-            <button type="submit" class="btn btn-secondary"/>Submit</button>
-            {% csrf_token %}
-          </fieldset>
-        </form>
+        <div style="text-align: center;">
+          <form action="/api/msisd/api-search/" method="GET">
+            <fieldset>
+              <legend>Search the database:</legend>
+                {% comment %} <div class="form-group">
+                  <label for="msisdn" class="form-label mt-4">MSISD Number</label>
+                  <input type="number" class="form-control" id="msisdn" aria-describedby="emailHelp" placeholder="Enter MSISDN...">
+                </div> {% endcomment %}
+              <label for="msisdn" class="form-label mt-4">MSISD Number :</label>
+              <input type="number" name="msisdn" required placeholder="Enter MSISDN..."/>
+              <button type="submit" class="btn btn-secondary"/>Submit</button>
+              {% csrf_token %}
+            </fieldset>
+          </form>
+        <div>
         <br>
         {% block content %}
         {% endblock %}
@@ -43,7 +46,6 @@
         <p>{{ message }}</p>
       </div>
       {% endif %}
-    </center>
     <br>
   </body>
   <footer>
