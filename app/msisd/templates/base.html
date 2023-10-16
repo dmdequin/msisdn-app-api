@@ -18,7 +18,7 @@
         <nav class='navbar navbar-expand-lg bg-light'>
           <ul>
             <!-- change link based on deployed vs local version -->
-            <a href="localhost:8000/api/msisd/home/">Home</a>
+            <a href="http://localhost:8000/api/msisd/home/">Home</a>
           </ul>
         </nav>
         <br>
@@ -26,6 +26,7 @@
           <form action="/api/msisd/api-search/" method="GET">
             <fieldset>
               <legend>Search the database:</legend>
+              <p><small>To search the database, enter an MSISD number (phone number including country code).</small></p>
                 {% comment %} <div class="form-group">
                   <label for="msisdn" class="form-label mt-4">MSISD Number</label>
                   <input type="number" class="form-control" id="msisdn" aria-describedby="emailHelp" placeholder="Enter MSISDN...">
