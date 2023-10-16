@@ -61,8 +61,6 @@ The app in development can be run locally for testing. To do so:
 
 ## Deployed App
 
-The deployed version of this app can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/](http://ec2-34-239-104-90.compute-1.amazonaws.com/).
+The app is hosted on an AWS EC2 instance. The frontend search of the API can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/).
 
-All endpoints can be tested from here. For example, the documentation can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/).
-
-The frontend search of the API for users can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/).
+The documentation can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/). The documentation shows the endpoints available and the actions possible at each endpoint (GET, POST, etc). It is also possible to test out the functionality of each endpoint using the documentation page.
