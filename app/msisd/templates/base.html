@@ -17,6 +17,7 @@
         </div>
         <nav class='navbar navbar-expand-lg bg-light'>
           <ul>
+            <!-- change link based on deployed vs local version -->
             <a href="http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/">Home</a>
           </ul>
         </nav>
@@ -25,12 +26,13 @@
           <form action="/api/msisd/api-search/" method="GET">
             <fieldset>
               <legend>Search the database:</legend>
+              <p><small>To search the database, enter an MSISD number ( phone number including country code ).</small></p>
                 {% comment %} <div class="form-group">
                   <label for="msisdn" class="form-label mt-4">MSISD Number</label>
                   <input type="number" class="form-control" id="msisdn" aria-describedby="emailHelp" placeholder="Enter MSISDN...">
                 </div> {% endcomment %}
               <label for="msisdn" class="form-label mt-4">MSISD Number :</label>
-              <input type="number" name="msisdn" required placeholder="Enter MSISDN..."/>
+              <input type="number" name="msisdn" required placeholder="38911223344"/>
               <button type="submit" class="btn btn-secondary"/>Submit</button>
               {% csrf_token %}
             </fieldset>
