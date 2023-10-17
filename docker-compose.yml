@@ -26,6 +26,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - main
 
   db:
     image: postgres:13-alpine
@@ -42,6 +44,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - main
 
   prometheus:
     image: prom/prometheus
@@ -49,6 +53,11 @@ services:
       - ./prometheus:/etc/prometheus
     ports:
       - "9090:9090"
+    networks:
+      - main
+
+networks:
+  main:
 
 volumes:
   dev-db-data:
