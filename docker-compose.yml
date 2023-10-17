@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   app:
+    container_name: app
     build:
       context: .
       args:
@@ -41,6 +42,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+    ports:
+      - "9090:9090"
 
 volumes:
   dev-db-data:

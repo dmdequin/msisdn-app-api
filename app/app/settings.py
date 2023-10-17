@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['app', 'localhost']
 ALLOWED_HOSTS.extend(
     filter(
         None,
@@ -49,9 +49,11 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'user',
     'msisd',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -138,7 +141,11 @@ STATIC_ROOT = '/vol/web/static'
 MEDIA_URL = '/static/media/'
 MEDIA_ROOT = '/vol/web/media'
 
-# STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'msisd', 'static') ]
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'msisd', 'static'), ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

@@ -1,0 +1,12 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'monitoring'
+    metrics_path: /metrics
+    static_configs:
+      - targets: [
+        'prometheus:9090',
+        'app:8000',  # can specify an IP
+        ]

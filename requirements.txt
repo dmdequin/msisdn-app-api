@@ -5,3 +5,4 @@ drf-spectacular>=0.22.1,<0.23
 phonenumbers>=8.13.21
 django-crispy-forms==1.14.0
 uwsgi==2.0.22
+django-prometheus==2.3.1
