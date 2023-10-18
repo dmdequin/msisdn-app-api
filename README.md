@@ -11,19 +11,16 @@ When entering in a number that is not already in the database, the field informa
 
 
 ## Project requirements
-**Git**:
-You will need Git to clone the project repository.
-
-**Docker Desktop**:
-Running this project locally requires installation of Docker Desktop.</br>
-Since development is all done through Docker, there are no other local installations needed.
-
-I personally used a version of Docker suitable for Ubutu WSL, but the OS should not matter. Versions I installed were:
+Technologies used:
+- git 2.32.1
 - Docker v24.0.6
 - Docker-compose v2.20.2
 
+Running this project locally requires installation of Docker Desktop.</br>
+Since development is all done through Docker, there are no other local installations needed.
+
 ## Getting started with local development
-Install Git and Docker Desktop.
+Obtain above installations.
 
 In the termninal navigate to a place you would like to clone this repository.
 Run ```git clone https://github.com/dmdequin/msisdn-app-api.git```
@@ -32,12 +29,14 @@ Navigate to the root directory of the project: ```cd msisdn-app-api```
 To build the app in development run ```docker-compose build```. This will build the docker image while using the docker-compose.yml file.
 
 ## Run Project with Docker
-After building the docker image run: ```docker-compose up```
+After building the docker image, run: ```docker-compose up```
 Then go to [http://localhost:8000/api/msisd/home/](http://localhost:8000/api/msisd/home/) to access the MSISD API search home page.
 
 To test admin functionality go to: [http://localhost:8000/admin](http://localhost:8000/admin)
 Create a superuser in the terminal by entering ```docker-compose run --rm app sh -c "python manage.py createsuperuser```
 Then login to the admin page using the admin credentials you provided.
+
+Prometheus monitoring can be viewed at [http://localhost:8000/metrics](http://localhost:8000/metrics).
 
 ## Documentation Page
 Swagger is used in this project to generate a documentation page for the API. This can be accessed at [http://localhost:8000/api/docs](http://localhost:8000/api/docs). All of the API endpoints are listed, and you are able to test different actions such as POST or GET.
@@ -53,10 +52,10 @@ Automated testing and linting was configured using GitHub Actions. This is compl
 ## App in Development
 
 The app in development can be run locally for testing. To do so:
-- Go to line 37 in the docker-compose-deploy.yml file and change the port mapping for the proxy to 8000:8000 (it is currently set to 80:8000).
+- Go to line 60 in the docker-compose-deploy.yml file and change the port mapping for the proxy to 8000:8000 (it is currently set to 80:8000).
 - Enter the proxy directory and run ```docker build .``` to build the docker image there.
 - Go back to the main directory and run ```docker-compose -f docker-compose-deploy.yml up``` to run the application.
-- In the browser go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and test out the various endpoints.
+- In the browser go to [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/docs) and test out the various endpoints using the Swagger documentation page.
 
 
 ## Deployed App
@@ -64,3 +63,7 @@ The app in development can be run locally for testing. To do so:
 The app is hosted on an AWS EC2 instance. The frontend search of the API can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/).
 
 The documentation can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/). The documentation shows the endpoints available and the actions possible at each endpoint (GET, POST, etc). It is also possible to test out the functionality of each endpoint using the documentation page.
+
+## Test the deployment version locally
+
+todo: env file, instructions

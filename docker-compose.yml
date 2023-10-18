@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   app:
+    container_name: app
     build:
       context: .
       args:
@@ -25,8 +26,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - main
 
   db:
+    container_name: db
     image: postgres:13-alpine
     volumes:
       - dev-db-data:/var/lib/postgresql/data
@@ -41,6 +45,21 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - main
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - main
+
+networks:
+  main:
 
 volumes:
   dev-db-data:

@@ -1,0 +1,18 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'monitoring'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['app:8000']  # can specify an IP
+        # 127.0.0.1:8000 is http://cded26fdc423:8000/metrics
+        # app:8000 is http://app:8000/metrics
+        # for local deployment 'app:8000 works correctly'
+        # 172.27.0.1:8000 times out
+        # host.docker.internal:8000 400 bad request
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
