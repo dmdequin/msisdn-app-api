@@ -30,6 +30,7 @@ services:
       - main
 
   db:
+    container_name: db
     image: postgres:13-alpine
     volumes:
       - dev-db-data:/var/lib/postgresql/data
@@ -48,6 +49,7 @@ services:
       - main
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus
     volumes:
       - ./prometheus:/etc/prometheus
