@@ -41,7 +41,7 @@ services:
 
   prometheus:
     container_name: prometheus
-    image: prom/prometheus
+    image: prom/prometheus:latest
     volumes:
       - ./prometheus:/etc/prometheus
     ports:
@@ -57,7 +57,7 @@ services:
     depends_on:
       - app
     ports:
-      - 8000:8000
+      - 80:8000
     volumes:
       - static-data:/vol/static
     networks:

@@ -52,7 +52,7 @@ Automated testing and linting was configured using GitHub Actions. This is compl
 ## App in Development
 
 The app in development can be run locally for testing. To do so:
-- Go to line 37 in the docker-compose-deploy.yml file and change the port mapping for the proxy to 8000:8000 (it is currently set to 80:8000).
+- Go to line 60 in the docker-compose-deploy.yml file and change the port mapping for the proxy to 8000:8000 (it is currently set to 80:8000).
 - Enter the proxy directory and run ```docker build .``` to build the docker image there.
 - Go back to the main directory and run ```docker-compose -f docker-compose-deploy.yml up``` to run the application.
 - In the browser go to [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/docs) and test out the various endpoints using the Swagger documentation page.
@@ -63,3 +63,7 @@ The app in development can be run locally for testing. To do so:
 The app is hosted on an AWS EC2 instance. The frontend search of the API can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/).
 
 The documentation can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/). The documentation shows the endpoints available and the actions possible at each endpoint (GET, POST, etc). It is also possible to test out the functionality of each endpoint using the documentation page.
+
+## Test the deployment version locally
+
+todo: env file, instructions
