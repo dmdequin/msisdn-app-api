@@ -2,7 +2,6 @@ version: "3.9"
 
 services:
   app:
-    container_name: app
     build:
       context: .
     restart: always
@@ -18,11 +17,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - main
 
   db:
-    container_name: db
     image: postgres:13-alpine
     restart: always
     volumes:
@@ -36,21 +32,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    networks:
-      - main
-
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:latest
-    volumes:
-      - ./prometheus:/etc/prometheus
-    ports:
-      - "9090:9090"
-    networks:
-      - main
 
   proxy:
-    container_name: proxy
     build:
       context: ./proxy
     restart: always
@@ -60,11 +43,6 @@ services:
       - 80:8000
     volumes:
       - static-data:/vol/static
-    networks:
-      - main
-
-networks:
-  main:
 
 volumes:
   postgres-data:
