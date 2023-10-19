@@ -15,8 +15,7 @@ services:
       - SECRET_KEY=${DJANGO_SECRET_KEY}
       - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
   db:
     image: postgres:13-alpine
@@ -27,11 +26,6 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER" ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   proxy:
     build:
