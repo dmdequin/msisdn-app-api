@@ -37,7 +37,7 @@ Then login to the admin page using the admin credentials you provided.
 
 Prometheus was set up for monitoring and can be viewed at [http://localhost:9090](http://localhost:9090).
 
-Swagger is used in this project to generate a documentation page for the API. This can be accessed at [http://localhost:8000/api/docs](http://localhost:8000/api/docs). All of the API endpoints are shown, and you can test the different actions available such as POST or GET.
+Swagger is used in this project to generate a documentation page for the API. This can be accessed at [http://localhost:8000/api/docs](http://localhost:8000/api/docs). The documentation shows all of the API endpoints, and you can test the html actions available for each such as POST or GET.
 
 ## Linting and Testing Locally
 
@@ -47,7 +47,7 @@ This project uses Flake8 for code linting. To run linting, from the main project
 
 This project contains unit tests that test each of the apps (user and msisd). To run the tests locally enter the following from the main project directory: ```docker-compose run --rm app sh -c "python manage.py test"```.
 
-## Locally running a version of the app that is deployed
+## Locally running the deployed version of the app
 
 The deployed app can be run locally for testing. To do so:
 - In the root directory of the project create a file named '.env'. Here copy the contents of the .env.sample file.
@@ -60,6 +60,4 @@ The deployed app can be run locally for testing. To do so:
 
 ## Deployed App
 
-The app is hosted on an AWS EC2 instance. The frontend search of the API can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/msisd/home/).
-
-The documentation can be found at [http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/](http://ec2-34-239-104-90.compute-1.amazonaws.com/api/docs/). The documentation shows the endpoints available and the actions possible at each endpoint (GET, POST, etc). It is also possible to test out the functionality of each endpoint using the documentation page.
+The deployed app was hosted on an AWS EC2 instance.
