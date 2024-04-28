@@ -21,8 +21,8 @@ Since development is all done through Docker, there are no other local installat
 ## Getting started with local development
 Obtain above installations.
 
-In the termninal navigate to a place you would like to clone this repository.
-Run ```git clone https://github.com/dmdequin/msisdn-app-api.git```
+In the termninal navigate to a place you would like to clone this repository.<br>
+Run ```git clone https://github.com/dmdequin/msisdn-app-api.git```<br>
 Navigate to the root directory of the project: ```cd msisdn-app-api```
 
 To build the app in development run ```docker-compose build```. This will build the docker image while using the docker-compose.yml file.
@@ -31,8 +31,8 @@ To build the app in development run ```docker-compose build```. This will build 
 After building the docker image, run: ```docker-compose up```
 Then go to [http://localhost:8000/api/msisd/home/](http://localhost:8000/api/msisd/home/) to access the MSISD API home page.
 
-To test admin functionality go to: [http://localhost:8000/admin](http://localhost:8000/admin)
-Create a superuser in the terminal by entering ```docker-compose run --rm app sh -c "python manage.py createsuperuser```
+To test admin functionality go to: [http://localhost:8000/admin](http://localhost:8000/admin).<br>
+Create a superuser in the terminal by entering ```docker-compose run --rm app sh -c "python manage.py createsuperuser```<br>
 Then login to the admin page using the admin credentials you provided.
 
 Prometheus was set up for monitoring and can be viewed at [http://localhost:9090](http://localhost:9090).
@@ -51,7 +51,7 @@ This project contains unit tests that test each of the apps (user and msisd). To
 
 The deployed app can be run locally for testing. To do so:
 - In the root directory of the project create a file named '.env'. Here copy the contents of the .env.sample file.
-- Go to line 60 in the docker-compose-deploy.yml file and change the port mapping for the proxy to 8000:8000 (it is currently set to 80:8000).
+- Go to line 37 in the docker-compose-deploy.yml file and change the port mapping for the proxy to 8000:8000 (it is currently set to 80:8000).
 - Enter the proxy directory and run ```docker build .``` to build the docker image there.
 - Go back to the main directory and run ```docker-compose -f docker-compose-deploy.yml build```.
 - Then run ```docker-compose -f docker-compose-deploy.yml up``` to run the application.
